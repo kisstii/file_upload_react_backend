@@ -1,16 +1,18 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 function App(){
 	const [selectedFile, setSelectedFile] = useState();
 	const [isSelected, setIsSelected] = useState(false);
+	const [buttonClicked, setButtonClicked] = useState(false);
 
 	const changeHandler = (event) => {
 		setSelectedFile(event.target.files[0]);
 		setIsSelected(true);
 	};
 
-	const handleSubmission = () => {
-    const formData = new FormData();
+	useEffect(() => {
+		if (isSelected) {
+		const formData = new FormData();
 
 		formData.append('userfile', selectedFile);
 
@@ -28,7 +30,8 @@ function App(){
 			.catch((error) => {
 				console.error('Error:', error);
 			});
-	};
+		}
+	}, [buttonClicked])
 
 	return(
    <div className="App">
@@ -40,14 +43,14 @@ function App(){
 					<p>Size in bytes: {selectedFile.size}</p>
 					<p>
 						lastModifiedDate:{' '}
-						{selectedFile.lastModifiedDate.toLocaleDateString()}
+					{/*	{selectedFile.lastModifiedDate.toLocaleDateString()} */}
 					</p>
 				</div>
 			) : (
 				<p>Select a file to show details</p>
 			)}
 			<div>
-				<button onClick={handleSubmission}>Submit</button>
+				<button onClick={() => { setButtonClicked(true) }}>Submit</button>
 			</div>
 		</div>
 	)
