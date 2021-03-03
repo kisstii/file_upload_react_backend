@@ -1,12 +1,12 @@
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const app = express();
-const cors= require("cors");
+const cors = require("cors");
 
 // default options
 // middleware
 app.use(fileUpload());
-app.use(cors({origin: 'http://localhost:3000'}));
+app.use(cors({ origin: "http://localhost:3000" }));
 
 // form
 app.use("/form", express.static(__dirname + "/../frontend/index.html"));
@@ -32,7 +32,7 @@ app.post("/upload", function (req, res) {
 });
 
 // serve static
-app.use(express.static('../frontend'));
+app.use(express.static("../frontend"));
 
 // localhost = "127.0.0.1"
 app.listen(8000, "127.0.0.1", () => {
